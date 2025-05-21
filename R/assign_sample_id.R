@@ -47,6 +47,8 @@
 #'   date_col = "date_of_sample",
 #'   verbose = TRUE
 #' )
+#' 
+#' @import dplyr
 #'
 #' @export
 #'

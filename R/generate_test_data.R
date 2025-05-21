@@ -33,6 +33,8 @@
 #' )
 #' head(test_data)
 #'
+#' @import dplyr
+#' 
 #' @export
 #' 
 generate_test_data <- function(num_samples, 
