@@ -19,7 +19,7 @@ This vignette demonstrates how to use the AssignSampleIDs package with the inclu
 The test_data dataset is included in the package and can be loaded as follows:
 
 ```{r test_data}
-data(test_data)
+test_data = AssignSampleIDs::test_data
 head(test_data)
 ```
 
