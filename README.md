@@ -1,5 +1,3 @@
-
-
 # AssignSampleIDs
 
 **AssignSampleIDs** is an R package that provides tools for generating, assigning, and managing sample IDs in laboratory workflows. It includes functions for creating unique identifiers, handling sample metadata, and ensuring consistency in data management.
@@ -17,7 +15,7 @@ install.packages("devtools")
 
 # Install AssignSampleIDs from GitHub
 
-devtools::install_github("mattssca/AssignSampleIDs")
+devtools::install_github("mattssca/assign_sample_id")
 ```
 
 Alternatively, if you have the package source files, you can install it locally:
@@ -55,8 +53,8 @@ result <- assign_sample_id(
 * Assign and manage metadata for laboratory workflows.
 * Ensure consistency in data management.
 
-
 ## Access the Vignette
+
 After installing the package, you can view the vignette using:
 
 ```
