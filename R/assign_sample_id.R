@@ -47,7 +47,7 @@
 #'   date_col = "date_of_sample",
 #'   verbose = TRUE
 #' )
-#' 
+#'
 #' @import dplyr
 #'
 #' @export
@@ -129,15 +129,15 @@ assign_sample_id = function(this_data = NULL,
     )
 
   if(verbose){
-    num_unique_samples <- test_out %>%
+    num_unique_samples <- this_data %>%
       summarise(num_unique = n_distinct(sample_id)) %>%
       pull(num_unique)
 
-    num_non_na_sample_rep <- test_out %>%
+    num_non_na_sample_rep <- this_data %>%
       filter(!is.na(sample_rep)) %>%
       nrow()
 
-    num_sample_tumors <- test_out %>%
+    num_sample_tumors <- this_data %>%
       summarise(tumor_unique = n_distinct(tumor_n)) %>%
       pull(tumor_unique)
 

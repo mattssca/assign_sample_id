@@ -1,0 +1,58 @@
+---
+title: "Using `AssignSampleIDs` with Example Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using AssignSampleIDs with Example Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(AssignSampleIDs)
+```
+
+## Introduction
+This vignette demonstrates how to use the AssignSampleIDs package with the included test_data dataset. The test_data dataset contains example lab IDs, personal IDs, and sample collection dates.
+
+## Loading the Example Data
+The test_data dataset is included in the package and can be loaded as follows:
+
+```{r test_data}
+data(test_data)
+head(test_data)
+```
+
+## Assigning Sample IDs
+The assign_sample_id function assigns unique sample IDs, annotates duplicates, and tracks tumor occurrences for each patient. Here’s how to use it with the test_data dataset:
+
+```{r assign_sample_ids}
+result <- assign_sample_id(
+  this_data = test_data,
+  start_id = 100,
+  lab_id_col = "lab_id",
+  personal_id_col = "personal_id",
+  date_col = "date_of_sample",
+  verbose = TRUE
+)
+
+head(result)
+```
+
+## Explanation of the Output
+The output of the assign_sample_id function includes the following columns:
+
+- lab_id: The original lab ID column.
+- personal_id: The original personal ID column.
+- date_of_sample: The original date of sample collection column.
+- sample_id: The formatted sample ID column, which includes unique IDs, replicate numbers, and tumor annotations.
+
+## Summary Statistics
+If the verbose parameter is set to TRUE, the function prints summary statistics about the data, including:
+
+- The number of unique samples.
+- The number of patients with replicates.
+- The number of samples with multiple tumors.
+
+## Conclusion
+This vignette demonstrated how to use the AssignSampleIDs package with the test_data dataset. For more details, refer to the function documentation or explore other features of the package.

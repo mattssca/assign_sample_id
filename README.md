@@ -52,6 +52,14 @@ head(test_data)
 * Assign and manage metadata for laboratory workflows.
 * Ensure consistency in data management.
 
+
+## Access the Vignette
+After installing the package, you can view the vignette using:
+
+```
+browseVignettes("AssignSampleIDs")
+```
+
 ## Contributing
 
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
