@@ -94,4 +94,3 @@ test_that("assign_sample_id returns the correct columns", {
 
   expect_true(all(c("lab_id", "personal_id", "date_of_sample", "sample_id") %in% colnames(result)))
 })
-
