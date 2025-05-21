@@ -1,0 +1,34 @@
+name: R-CMD-check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-check-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::devtools
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Install BiocManager
+        run: Rscript -e "install.packages('BiocManager')"
+        
+      - name: Install AssignSampleIDs
+        run: Rscript -e "devtools::install(repos = BiocManager::repositories())"
+
+      - name: Check BiomaesteR
+        run: Rscript -e "devtools::check(vignettes = FALSE)"
+
+      - name: Run unit tests
+        run: Rscript -e "devtools::test()"
+        
