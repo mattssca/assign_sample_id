@@ -1,0 +1,26 @@
+{
+    "id": "35F361BB",
+    "path": "~/AssignSampleIDs/R/assign_sample_id.R",
+    "project_path": "R/assign_sample_id.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1747817840872.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "154,0",
+        "scrollLine": "134"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1747817857,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1747817857032,
+    "read_only": false,
+    "read_only_alternatives": []
+}
