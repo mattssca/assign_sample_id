@@ -28,4 +28,3 @@ jobs:
 
       - name: Run unit tests
         run: Rscript -e "devtools::test()"
-        
