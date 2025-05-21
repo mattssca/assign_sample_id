@@ -17,7 +17,7 @@ install.packages("devtools")
 
 # Install AssignSampleIDs from GitHub
 
-devtools::install_github("yourusername/AssignSampleIDs")
+devtools::install_github("mattssca/AssignSampleIDs")
 ```
 
 Alternatively, if you have the package source files, you can install it locally:
