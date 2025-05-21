@@ -32,6 +32,7 @@ install.packages("path/to/AssignSampleIDs", repos = NULL, type = "source")
 Load the package and start using its functions:
 
 ```
+# Load package
 library(AssignSampleIDs)
 
 # Example: load test data
