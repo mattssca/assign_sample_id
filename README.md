@@ -34,16 +34,18 @@ Load the package and start using its functions:
 ```
 library(AssignSampleIDs)
 
-# Example: Generate a test dataset
-test_data <- generate_test_data(
-  num_samples = 100,
-  num_unique_personal_ids = 10,
-  num_unique_dates = 5,
-  samples_per_combination = 2
+# Example: load test data
+test_data = AssignSampleIDs::test_data
+
+# Run funciton on test data
+result <- assign_sample_id(
+  this_data = test_data,
+  start_id = 100,
+  lab_id_col = "lab_id",
+  personal_id_col = "personal_id",
+  date_col = "date_of_sample",
+  verbose = TRUE
 )
-
-head(test_data)
-
 ```
 
 ## Features
