@@ -18,6 +18,8 @@ LazyData: true
 RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10)
+Imports: 
+    dplyr
 Suggests: 
     knitr,
     rmarkdown
