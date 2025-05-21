@@ -31,6 +31,9 @@
 #' }
 #'
 #' @examples
+#' #load pacakges
+#' library(tibble, dplyr)
+#' 
 #' # Example data
 #' test_data <- tibble(
 #'   lab_id = c("45KF98987", "13KF85140", "13KF85140", "82KF36719"),

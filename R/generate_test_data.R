@@ -16,6 +16,9 @@
 #' }
 #'
 #' @examples
+#' #' #load pacakges
+#' library(tibble, dplyr)
+#' 
 #' # Generate a test data set with 100 samples, 10 unique personal IDs, and 5 unique dates
 #' test_data <- generate_test_data(
 #'   num_samples = 100,
