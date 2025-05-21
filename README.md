@@ -1,6 +1,6 @@
 # AssignSampleIDs
 
-[![R-CMD-check](https://github.com/mattssca/assign_sample_id/actions/workflows/r-cmd-check.yml/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/r-cmd-check.yml)
+[![R-CMD-check](https://github.com/mattssca/assign_sample_id/actions/workflows/r-cmd-check.yml/badge.svg)](https://github.com/mattssca/assign_sample_id/actions/workflows/r-cmd-check.yml)
 
 
 **AssignSampleIDs** is an R package that provides tools for generating, assigning, and managing sample IDs in laboratory workflows. It includes functions for creating unique identifiers, handling sample metadata, and ensuring consistency in data management.
