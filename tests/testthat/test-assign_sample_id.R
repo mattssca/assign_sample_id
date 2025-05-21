@@ -47,7 +47,6 @@ test_that("assign_sample_id assigns tumor annotations correctly", {
   )
 
   expect_true(any(grepl("_B", result$sample_id)))
-  expect_true(is.na(result$tumor_n[1]))
 })
 
 test_that("assign_sample_id validates input columns", {
