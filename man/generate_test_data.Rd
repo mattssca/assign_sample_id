@@ -4,12 +4,7 @@
 \alias{generate_test_data}
 \title{Generate a Test Data Set with Controlled Sample Distribution}
 \usage{
-generate_test_data(
-  num_samples,
-  num_unique_personal_ids,
-  num_unique_dates,
-  samples_per_combination
-)
+generate_test_data(num_samples, num_unique_personal_ids, num_unique_dates)
 }
 \arguments{
 \item{num_samples}{Integer. The total number of samples to generate.}
@@ -17,9 +12,6 @@ generate_test_data(
 \item{num_unique_personal_ids}{Integer. The number of unique personal IDs to generate.}
 
 \item{num_unique_dates}{Integer. The number of unique dates to generate.}
-
-\item{samples_per_combination}{Integer. The number of samples to generate for each unique 
-combination of personal ID and date.}
 }
 \value{
 A data frame with the following columns:
@@ -30,24 +22,16 @@ A data frame with the following columns:
 }
 }
 \description{
-This function generates a test data set with a specified number of samples, unique personal IDs, 
-unique dates, and samples per unique combination of personal ID and date. It ensures that the 
+This function generates a test data set with a specified number of samples, unique personal IDs,
+unique dates, and samples per unique combination of personal ID and date. It ensures that the
 total number of samples matches the specified `num_samples`.
 }
-\details{
-The function generates a pool of unique personal IDs and dates, creates all possible 
-combinations of these, and repeats each combination the specified number of times. If the total 
-number of samples exceeds or falls short of `num_samples`, the function adjusts the data set 
-accordingly by truncating or adding additional rows.
-}
 \examples{
-# Generate a test data set with 100 samples, 10 unique personal IDs, 5 unique dates,
-# and 2 samples per combination
+# Generate a test data set with 100 samples, 10 unique personal IDs, and 5 unique dates
 test_data <- generate_test_data(
   num_samples = 100,
   num_unique_personal_ids = 10,
-  num_unique_dates = 5,
-  samples_per_combination = 2
+  num_unique_dates = 5
 )
 head(test_data)
 
