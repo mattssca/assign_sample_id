@@ -3,3 +3,4 @@
 export(assign_sample_id)
 export(generate_test_data)
 import(dplyr)
+import(tibble)

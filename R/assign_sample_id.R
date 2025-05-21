@@ -48,7 +48,7 @@
 #'   verbose = TRUE
 #' )
 #'
-#' @import dplyr
+#' @import dplyr tibble
 #'
 #' @export
 #'

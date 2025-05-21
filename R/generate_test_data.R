@@ -33,7 +33,7 @@
 #' )
 #' head(test_data)
 #'
-#' @import dplyr
+#' @import dplyr tibble
 #' 
 #' @export
 #' 
