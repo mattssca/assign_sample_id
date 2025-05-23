@@ -64,6 +64,9 @@ After installing the package, you can view the vignette using:
 browseVignettes("AssignSampleIDs")
 ```
 
+## Shiny App
+For an interactive user experience, give [the shiny app](https://mattsada.shinyapps.io/shiny-app/) a go!
+
 ## Contributing
 
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
