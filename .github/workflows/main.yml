@@ -21,18 +21,17 @@ jobs:
         with:
           packages: |
             any::devtools
+            any::tibble
+            any::BiocManager
 
       - name: Check out repository
         uses: actions/checkout@v3
-        
-      - name: Install BiocManager
-        run: Rscript -e "install.packages('BiocManager')"
         
       - name: Install AssignSampleIDs
         run: Rscript -e "devtools::install(repos = BiocManager::repositories())"
 
       - name: Check AssignSampleIDs
-        run: Rscript -e "devtools::check(vignettes = FALSE)"
+        run: Rscript -e "devtools::check(vignettes = TRUE)"
 
       - name: Run unit tests
         run: Rscript -e "devtools::test()"
