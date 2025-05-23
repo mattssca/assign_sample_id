@@ -1,0 +1,7 @@
+Type: Shiny
+Package: shinyapp
+Title: Assign Sample IDs App
+Version: 0.1.0
+Author: Adam Mattsson
+Description: Shiny app for assigning sample IDs.
+Remotes: mattssca/assign_sample_id
