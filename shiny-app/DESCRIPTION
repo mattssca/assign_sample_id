@@ -5,3 +5,10 @@ Version: 0.1.0
 Author: Adam Mattsson
 Description: Shiny app for assigning sample IDs.
 Remotes: mattssca/assign_sample_id
+Imports: shinyjs, 
+         bslib, 
+         shinyWidgets,
+         AssignSmapleIDs,
+         dplyr,
+         tibble,
+         shiny

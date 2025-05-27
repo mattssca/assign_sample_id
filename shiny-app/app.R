@@ -3,8 +3,8 @@ library(dplyr)
 library(tibble)
 library(shinyjs)
 library(bslib)
-library(AssignSampleIDs)
 library(shinyWidgets)
+library(AssignSampleIDs)
 
 ui <- fluidPage(
   theme = bs_theme(bootswatch = "minty"),
