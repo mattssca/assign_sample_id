@@ -6,7 +6,3 @@ Author: Adam Mattsson
 Description: Shiny app for assigning sample IDs.
 Remotes: mattssca/assign_sample_id, 
          daattali/shinyjs
-Imports: 
-    shiny,
-    shinyjs,
-    AssignSampleIDs
