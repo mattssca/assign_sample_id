@@ -7,7 +7,7 @@ rsconnect::setAccountInfo(name = 'mattsada',
                           secret = 'CMKrmQedHY5/ww0kRRYBQF8Npzr/vcclSTeQaphz')
 
 #deploy
-rsconnect::deployApp('shiny-app/')
+rsconnect::deployApp('shiny-app/', appName = "AssignSampleIDs")
 
-
+#locally deploy
 shiny::runApp("shiny-app")

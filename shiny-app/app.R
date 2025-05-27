@@ -4,6 +4,7 @@ library(tibble)
 library(shinyjs)
 library(bslib)
 library(shinyWidgets)
+library(DT)
 library(AssignSampleIDs)
 
 ui <- fluidPage(
@@ -13,14 +14,16 @@ ui <- fluidPage(
   titlePanel("Assign Sample IDs and Annotate Tumor Information"),
   sidebarLayout(
     sidebarPanel(
+      checkboxInput("full_return", "Full Return (all columns)", value = FALSE),
       fileInput("file", "Upload TXT File", accept = ".txt"),
       numericInput("start_id", "Starting Sample ID", value = 1, min = 1),
       uiOutput("col_selectors"),
       actionButton("run", "Assign Sample IDs")
     ),
     mainPanel(
-      tableOutput("result"),
-      downloadButton("download", "Download Results")
+      downloadButton("download", "Download Results"),
+      br(),
+      DTOutput("result")
     )
   )
 )
@@ -93,23 +96,24 @@ server <- function(input, output, session) {
         lab_id_col = input$lab_id_col,
         personal_id_col = input$personal_id_col,
         date_col = input$date_col,
-        verbose = FALSE
+        verbose = FALSE,
+        return_full = input$full_return # pass the checkbox value
       )
     }, error = function(e) {
       showNotification(paste("Error:", e$message), type = "error")
       NULL
     })
 
-    # Only return lab_id and sample_id columns
-    if (!is.null(out)) {
+    # Only return lab_id and sample_id columns if not full return
+    if (!is.null(out) && !input$full_return) {
       out <- out %>% select(lab_id, sample_id)
     }
     out
   })
 
-  output$result <- renderTable({
+  output$result <- renderDT({
     req(result())
-    result()
+    datatable(result(), options = list(pageLength = 10))
   })
 
   output$download <- downloadHandler(

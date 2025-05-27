@@ -1,10 +1,10 @@
-name: shiny-app
+name: AssignSampleIDs
 title:
 username: mattsada
 account: mattsada
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 14811476
-bundleId: 10349389
-url: https://mattsada.shinyapps.io/shiny-app/
+appId: 14831968
+bundleId: 10349404
+url: https://mattsada.shinyapps.io/AssignSampleIDs/
 version: 1
