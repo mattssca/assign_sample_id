@@ -8,10 +8,21 @@ library(DT)
 library(AssignSampleIDs)
 
 ui <- fluidPage(
+  titlePanel("Assign Sample IDs"),
   theme = bs_theme(bootswatch = "minty"),
   helpText("Upload a tab-delimited TXT file with your sample data."),
+  p("This app assigns unique sample IDs, annotate tumor Information and allows you to download the results."),
+  h4("Instructions"),
+  tags$small(
+    tags$ul(
+      tags$li("Upload your data file (with the required columns Lab ID, Personal ID and Date)."),
+      tags$li("For each required data field, choose the correct column from the corresponding drop-down menu."),
+      tags$li("Click 'Assign Sample IDs' to process."),
+      tags$li("Optional: check the Full Return checkbox to keep all columns."),
+      tags$li("Download your results, or view them in the page.")
+    )
+  ),
   useShinyjs(),
-  titlePanel("Assign Sample IDs and Annotate Tumor Information"),
   sidebarLayout(
     sidebarPanel(
       checkboxInput("full_return", "Full Return (all columns)", value = FALSE),

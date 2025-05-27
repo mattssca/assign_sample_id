@@ -5,6 +5,6 @@ account: mattsada
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14831968
-bundleId: 10349404
+bundleId: 10349761
 url: https://mattsada.shinyapps.io/AssignSampleIDs/
 version: 1
