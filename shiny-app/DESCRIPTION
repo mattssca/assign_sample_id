@@ -8,7 +8,7 @@ Remotes: mattssca/assign_sample_id
 Imports: shinyjs, 
          bslib, 
          shinyWidgets,
-         AssignSmapleIDs,
+         AssignSampleIDs,
          dplyr,
          tibble,
          shiny
