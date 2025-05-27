@@ -9,6 +9,7 @@
 #' @param personal_id_col A string specifying the column name for personal IDs. Default is `"personal_id"`.
 #' @param date_col A string specifying the column name for the date of sample collection. Default is `"date_of_sample"`.
 #' @param verbose A boolean indicating whether to print summary statistics about the data. Default is `TRUE`.
+#' @param return_full A boolean indicating if the return should have all columns, or only the concatinated sample ID column.
 #'
 #' @return A data frame with the following columns:
 #' \describe{
@@ -33,7 +34,7 @@
 #' @examples
 #' #load pacakges
 #' library(tibble, dplyr)
-#' 
+#'
 #' # Example data
 #' test_data <- tibble(
 #'   lab_id = c("45KF98987", "13KF85140", "13KF85140", "82KF36719"),
@@ -60,7 +61,8 @@ assign_sample_id = function(this_data = NULL,
                             lab_id_col = "lab_id",
                             personal_id_col = "personal_id",
                             date_col = "date_of_sample",
-                            verbose = TRUE){
+                            verbose = TRUE,
+                            return_full = FALSE){
 
   #check if the specified columns exist in the incoming data
   required_cols <- c(lab_id_col, personal_id_col, date_col)
@@ -149,11 +151,18 @@ assign_sample_id = function(this_data = NULL,
     cat("Number of samples with multiple tumors:", num_sample_tumors, "\n")
   }
 
-  #format the return
-  this_data = this_data %>%
-    select(lab_id, personal_id, date_of_sample, formatted_sample_id) %>%
-    rename(sample_id = formatted_sample_id) %>%
-    arrange(sample_id)
+  if(return_full){
+    #format the return
+    this_data = this_data %>%
+      select(lab_id, personal_id, date_of_sample, sample_id, formatted_sample_id, tumor_n, sample_rep) %>%
+      arrange(date_of_sample)
+  }else{
+    #format the return
+    this_data = this_data %>%
+      select(lab_id, personal_id, date_of_sample, formatted_sample_id) %>%
+      rename(sample_id = formatted_sample_id) %>%
+      arrange(date_of_sample)
+  }
 
   return(this_data)
 }

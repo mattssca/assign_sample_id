@@ -10,7 +10,8 @@ assign_sample_id(
   lab_id_col = "lab_id",
   personal_id_col = "personal_id",
   date_col = "date_of_sample",
-  verbose = TRUE
+  verbose = TRUE,
+  return_full = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ assign_sample_id(
 \item{date_col}{A string specifying the column name for the date of sample collection. Default is `"date_of_sample"`.}
 
 \item{verbose}{A boolean indicating whether to print summary statistics about the data. Default is `TRUE`.}
+
+\item{return_full}{A boolean indicating if the return should have all columns, or only the concatinated sample ID column.}
 }
 \value{
 A data frame with the following columns:
@@ -52,6 +55,9 @@ The function performs the following steps:
 }
 }
 \examples{
+#load pacakges
+library(tibble, dplyr)
+
 # Example data
 test_data <- tibble(
   lab_id = c("45KF98987", "13KF85140", "13KF85140", "82KF36719"),

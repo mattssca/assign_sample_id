@@ -5,6 +5,6 @@ account: mattsada
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14811476
-bundleId: 10328827
+bundleId: 10348991
 url: https://mattsada.shinyapps.io/shiny-app/
 version: 1

@@ -1,9 +1,11 @@
 library(shiny)
 library(dplyr)
 library(tibble)
+library(shinyjs)
 library(AssignSampleIDs)
 
 ui <- fluidPage(
+  useShinyjs(),
   titlePanel("Assign Sample IDs and Annotate Tumor Information"),
   sidebarLayout(
     sidebarPanel(
@@ -35,6 +37,14 @@ server <- function(input, output, session) {
       selectInput("date_col", "Date of Sample column", choices = cols, selected = "date_of_sample")
     )
   })
+
+  observe({
+  shinyjs::toggleState("run", 
+    !is.null(input$lab_id_col) && 
+    !is.null(input$personal_id_col) && 
+    !is.null(input$date_col)
+  )
+})
   
   result <- eventReactive(input$run, {
     req(user_data(), input$start_id, input$lab_id_col, input$personal_id_col, input$date_col)

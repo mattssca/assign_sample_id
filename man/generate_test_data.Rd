@@ -27,6 +27,9 @@ unique dates, and samples per unique combination of personal ID and date. It ens
 total number of samples matches the specified `num_samples`.
 }
 \examples{
+#' #load pacakges
+library(tibble, dplyr)
+
 # Generate a test data set with 100 samples, 10 unique personal IDs, and 5 unique dates
 test_data <- generate_test_data(
   num_samples = 100,
