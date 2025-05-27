@@ -8,3 +8,6 @@ rsconnect::setAccountInfo(name = 'mattsada',
 
 #deploy
 rsconnect::deployApp('shiny-app/')
+
+
+shiny::runApp("shiny-app")

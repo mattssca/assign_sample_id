@@ -58,63 +58,60 @@
 #'
 assign_sample_id = function(this_data = NULL,
                             start_id = NULL,
-                            lab_id_col = "lab_id",
-                            personal_id_col = "personal_id",
-                            date_col = "date_of_sample",
+                            lab_id_col = NULL,
+                            personal_id_col = NULL,
+                            date_col = NULL,
                             verbose = TRUE,
-                            return_full = FALSE){
+                            return_full = FALSE) {
+
+  #ensure the user is providing column names
+  if (is.null(lab_id_col)) stop("User must provide a column name annotating lab IDs...")
+  if (is.null(personal_id_col)) stop("User must provide a column name annotating personal IDs...")
+  if (is.null(date_col)) stop("User must provide a column name annotating dates...")
 
   #check if the specified columns exist in the incoming data
   required_cols <- c(lab_id_col, personal_id_col, date_col)
-  if(!all(required_cols %in% colnames(this_data))){
+  if (!all(required_cols %in% colnames(this_data))) {
     stop("One or more specified columns do not exist in the incoming data.")
   }
 
-  #checks
-  if(is.null(start_id)){
-    stop("No starting sample_id provided, the funciton does not know the sequence of sample IDs to adhere to...")
+  if (is.null(start_id)) {
+    stop("No starting sample_id provided, the function does not know the sequence of sample IDs to adhere to...")
   }
 
-  #create sample_id for each unique personal_id
+  #dynamically reference columns using .data[[colname]]
   this_data <- this_data %>%
-    mutate(sample_id = paste0("USQ_", sprintf("%05d", as.integer(factor(personal_id)) + start_id - 1)))
+    mutate(sample_id = paste0("USQ_", sprintf("%05d", as.integer(factor(.data[[personal_id_col]])) + start_id - 1)))
 
-  #add a new column annotating duplicates
   this_data <- this_data %>%
-    group_by(personal_id, date_of_sample) %>%
+    group_by(.data[[personal_id_col]], .data[[date_col]]) %>%
     mutate(sample_rep = row_number()) %>%
     ungroup()
 
-  #add a new column tumor_n
   this_data <- this_data %>%
-    group_by(personal_id) %>%
-    arrange(date_of_sample) %>%
+    group_by(.data[[personal_id_col]]) %>%
+    arrange(.data[[date_col]], .by_group = TRUE) %>%
     mutate(tumor_n = LETTERS[row_number()]) %>%
     ungroup()
 
-  #update tumor_n to ensure the same value for the same personal_id and date_of_sample
   this_data <- this_data %>%
-    group_by(personal_id, date_of_sample) %>%
+    group_by(.data[[personal_id_col]], .data[[date_col]]) %>%
     mutate(tumor_n = first(tumor_n)) %>%
     ungroup()
 
-  #update tumor_n to assign unique letters for distinct tumors and keep duplicates consistent
   this_data <- this_data %>%
-    group_by(personal_id) %>%
-    arrange(date_of_sample) %>%
-    mutate(tumor_n = LETTERS[match(date_of_sample, unique(date_of_sample))]) %>%
+    group_by(.data[[personal_id_col]]) %>%
+    arrange(.data[[date_col]], .by_group = TRUE) %>%
+    mutate(tumor_n = LETTERS[match(.data[[date_col]], unique(.data[[date_col]]))]) %>%
     ungroup()
 
-  #subtract 1 from all values in the sample_rep column
   this_data <- this_data %>%
     mutate(sample_rep = sample_rep - 1)
 
-  #replace all "A" in tumor_n with NA
   this_data <- this_data %>%
     mutate(tumor_n = ifelse(tumor_n == "A", NA, tumor_n)) %>%
-    mutate(sample_rep  = ifelse(sample_rep  == 0, NA, sample_rep ))
+    mutate(sample_rep = ifelse(sample_rep == 0, NA, sample_rep))
 
-  #create the formatted_sample_id column
   this_data <- this_data %>%
     mutate(
       formatted_sample_id = paste(
@@ -126,14 +123,13 @@ assign_sample_id = function(this_data = NULL,
         gsub("_$", "", .)
     )
 
-  #clean up the formatted_sample_id column
   this_data <- this_data %>%
     mutate(
       formatted_sample_id = gsub("_$", "", formatted_sample_id),
       formatted_sample_id = gsub("_+", "_", formatted_sample_id)
     )
 
-  if(verbose){
+  if (verbose) {
     num_unique_samples <- this_data %>%
       summarise(num_unique = n_distinct(sample_id)) %>%
       pull(num_unique)
@@ -151,14 +147,30 @@ assign_sample_id = function(this_data = NULL,
     cat("Number of samples with multiple tumors:", num_sample_tumors, "\n")
   }
 
-  if(return_full){
-    #format the return
-    this_data = this_data %>%
+  # Remove existing columns that would conflict with the new names
+  conflict_cols <- c("lab_id", "personal_id", "date_of_sample")
+  conflict_cols <- conflict_cols[conflict_cols %in% names(this_data) & !(conflict_cols %in% c(lab_id_col, personal_id_col, date_col))]
+  if (length(conflict_cols) > 0) {
+    this_data <- this_data %>% select(-all_of(conflict_cols))
+  }
+
+  # Always return columns with standard names for downstream use
+  if (return_full) {
+    this_data <- this_data %>%
+      rename(
+        lab_id = !!lab_id_col,
+        personal_id = !!personal_id_col,
+        date_of_sample = !!date_col
+      ) %>%
       select(lab_id, personal_id, date_of_sample, sample_id, formatted_sample_id, tumor_n, sample_rep) %>%
       arrange(date_of_sample)
-  }else{
-    #format the return
-    this_data = this_data %>%
+  } else {
+    this_data <- this_data %>%
+      rename(
+        lab_id = !!lab_id_col,
+        personal_id = !!personal_id_col,
+        date_of_sample = !!date_col
+      ) %>%
       select(lab_id, personal_id, date_of_sample, formatted_sample_id) %>%
       rename(sample_id = formatted_sample_id) %>%
       arrange(date_of_sample)
