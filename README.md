@@ -65,7 +65,7 @@ browseVignettes("AssignSampleIDs")
 
 ## Shiny App
 
-For an interactive user experience, give [the shiny app](https://mattsada.shinyapps.io/shiny-app/) a go!
+For an interactive user experience, give [the shiny app](https://mattsada.shinyapps.io/AssignSampleIDs/) a go!
 
 ## Docker Container
 
