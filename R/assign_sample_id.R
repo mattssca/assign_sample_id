@@ -14,7 +14,7 @@
 #'
 #' @return A data frame with sample IDs and annotations.
 #' @export
-#' 
+#'
 assign_sample_id <- function(this_data = NULL,
                              start_id = NULL,
                              lab_id_col = NULL,
@@ -22,7 +22,38 @@ assign_sample_id <- function(this_data = NULL,
                              date_col = NULL,
                              previous_batch = NULL,
                              verbose = TRUE,
-                             return_full = FALSE) {
+                             return_full = FALSE){
+
+  #remove rows with NA or unexpected values in required columns
+  invalid_rows <- this_data %>%
+    dplyr::filter(
+      is.na(.data[[lab_id_col]]) | is.na(.data[[personal_id_col]]) | is.na(.data[[date_col]]) |
+        !grepl("^\\d{8}-\\d{4}$", as.character(.data[[personal_id_col]])) |
+        !grepl("^\\d{4}-\\d{2}-\\d{2}$", as.character(.data[[date_col]])) |
+        is.na(as.Date(as.character(.data[[date_col]]), format = "%Y-%m-%d"))
+    )
+
+  if(nrow(invalid_rows) > 0){
+    message("The following samples were disregarded due to NA or unexpected values in required columns:")
+    print(invalid_rows)
+  }
+
+  #keep only valid rows
+  this_data <- this_data %>%
+    dplyr::filter(
+      !is.na(.data[[lab_id_col]]),
+      !is.na(.data[[personal_id_col]]),
+      !is.na(.data[[date_col]]),
+      grepl("^\\d{8}-\\d{4}$", as.character(.data[[personal_id_col]])),
+      grepl("^\\d{4}-\\d{2}-\\d{2}$", as.character(.data[[date_col]])),
+      !is.na(as.Date(as.character(.data[[date_col]]), format = "%Y-%m-%d"))
+    )
+
+  #notify user if the function is aware of a previous batch
+  if(!is.null(previous_batch)){
+    message("WARNING! previous_batch is provided, the assignment of sample IDs will be in respect to
+            the provided object in previous_batch....")
+  }
 
   #input checks
   if(is.null(lab_id_col)) stop("User must provide a column name annotating lab IDs...")
@@ -199,5 +230,6 @@ assign_sample_id <- function(this_data = NULL,
       dplyr::arrange(date_of_sample)
   }
 
+  attr(this_data, "invalid_rows") <- invalid_rows
   return(this_data)
 }
