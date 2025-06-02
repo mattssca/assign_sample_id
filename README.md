@@ -71,15 +71,30 @@ For an interactive user experience, give [the shiny app](https://mattsada.shinya
 
 The shiny app is also available as a Docker container. Follow the next steps to pull the image and run the Docker image.
 
-```
-#pull the image
-docker pull mattssca/assignsampleids-app:latest
+### Prerequisites
 
-#run the container
-docker run -d -p 3838:3838 mattssca/assignsampleids-app:latest
-```
+- **Docker must be installed on your computer.**
+  - Download and install Docker Desktop from: [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+  - After installation, start Docker Desktop and ensure it is running.
 
-To access the app, open your web browser and go to: [http://localhost:3838](http://localhost:3838)
+### Running the App
+
+1. **Load the Docker image**
+
+   Open a terminal (Command Prompt, PowerShell, or Terminal) and run:
+
+   ```
+   docker pull mattssca/assignsampleids-app:latest
+   ```
+2. **Run the Docker container**
+
+   ```
+   docker run -d -p 3838:3838 mattssca/assignsampleids-app:latest
+   ```
+3. **Access the app**
+
+   Open your web browser and go to:
+   [http://localhost:3838](http://localhost:3838)
 
 ## Contributing
 
