@@ -2,7 +2,6 @@
 
 [![R-CMD-check](https://github.com/mattssca/assign_sample_id/actions/workflows/main.yml/badge.svg)](https://github.com/mattssca/assign_sample_id/actions/workflows/main.yml)
 
-
 **AssignSampleIDs** is an R package that provides tools for generating, assigning, and managing sample IDs in laboratory workflows. It includes functions for creating unique identifiers, handling sample metadata, and ensuring consistency in data management.
 
 ## Installation
@@ -65,9 +64,11 @@ browseVignettes("AssignSampleIDs")
 ```
 
 ## Shiny App
+
 For an interactive user experience, give [the shiny app](https://mattsada.shinyapps.io/shiny-app/) a go!
 
 ## Docker Container
+
 The shiny app is also available as a Docker container. Follow the next steps to pull the image and run the Docker image.
 
 ```
@@ -75,8 +76,9 @@ The shiny app is also available as a Docker container. Follow the next steps to 
 docker pull mattssca/assignsampleids-app:latest
 
 #run the container
-docker run -d -p 3838:3838 mattsscae/assignsampleids-app:latest
+docker run -d -p 3838:3838 mattssca/assignsampleids-app:latest
 ```
+
 To access the app, open your web browser and go to: [http://localhost:3838](http://localhost:3838)
 
 ## Contributing
