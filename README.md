@@ -67,6 +67,18 @@ browseVignettes("AssignSampleIDs")
 ## Shiny App
 For an interactive user experience, give [the shiny app](https://mattsada.shinyapps.io/shiny-app/) a go!
 
+## Docker Container
+The shiny app is also available as a Docker container. Follow the next steps to pull the image and run the Docker image.
+
+```
+#pull the image
+docker pull mattssca/assignsampleids-app:latest
+
+#run the container
+docker run -d -p 3838:3838 mattsscae/assignsampleids-app:latest
+```
+To access the app, open your web browser and go to: [http://localhost:3838](http://localhost:3838)
+
 ## Contributing
 
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.

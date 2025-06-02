@@ -62,22 +62,35 @@ assign_sample_id = function(this_data = NULL,
                             personal_id_col = NULL,
                             date_col = NULL,
                             verbose = TRUE,
-                            return_full = FALSE) {
+                            return_full = FALSE){
 
   #ensure the user is providing column names
-  if (is.null(lab_id_col)) stop("User must provide a column name annotating lab IDs...")
-  if (is.null(personal_id_col)) stop("User must provide a column name annotating personal IDs...")
-  if (is.null(date_col)) stop("User must provide a column name annotating dates...")
+  if(is.null(lab_id_col)) stop("User must provide a column name annotating lab IDs...")
+  if(is.null(personal_id_col)) stop("User must provide a column name annotating personal IDs...")
+  if(is.null(date_col)) stop("User must provide a column name annotating dates...")
 
   #check if the specified columns exist in the incoming data
   required_cols <- c(lab_id_col, personal_id_col, date_col)
-  if (!all(required_cols %in% colnames(this_data))) {
+  if(!all(required_cols %in% colnames(this_data))){
     stop("One or more specified columns do not exist in the incoming data.")
   }
 
-  if (is.null(start_id)) {
+  #check that all dates are in YYYY-MM-DD format
+  date_vals <- as.character(this_data[[date_col]])
+  if(!all(grepl("^\\d{4}-\\d{2}-\\d{2}$", date_vals))){
+    stop("Date column must be in YYYY-MM-DD format, e.g., 2025-06-02.")
+  }
+  if(any(is.na(as.Date(date_vals, format = "%Y-%m-%d")))){
+    stop("Date column contains invalid dates that do not match YYYY-MM-DD format.")
+  }
+
+  if(is.null(start_id)){
     stop("No starting sample_id provided, the function does not know the sequence of sample IDs to adhere to...")
   }
+
+  #order the samples chronologically
+  this_data <- this_data %>%
+    arrange(.data[[date_col]])
 
   #dynamically reference columns using .data[[colname]]
   this_data <- this_data %>%
@@ -129,7 +142,7 @@ assign_sample_id = function(this_data = NULL,
       formatted_sample_id = gsub("_+", "_", formatted_sample_id)
     )
 
-  if (verbose) {
+  if(verbose){
     num_unique_samples <- this_data %>%
       summarise(num_unique = n_distinct(sample_id)) %>%
       pull(num_unique)
@@ -147,15 +160,15 @@ assign_sample_id = function(this_data = NULL,
     cat("Number of samples with multiple tumors:", num_sample_tumors, "\n")
   }
 
-  # Remove existing columns that would conflict with the new names
+  #remove existing columns that would conflict with the new names
   conflict_cols <- c("lab_id", "personal_id", "date_of_sample")
   conflict_cols <- conflict_cols[conflict_cols %in% names(this_data) & !(conflict_cols %in% c(lab_id_col, personal_id_col, date_col))]
-  if (length(conflict_cols) > 0) {
+  if(length(conflict_cols) > 0){
     this_data <- this_data %>% select(-all_of(conflict_cols))
   }
 
-  # Always return columns with standard names for downstream use
-  if (return_full) {
+  #format the return
+  if(return_full){
     this_data <- this_data %>%
       rename(
         lab_id = !!lab_id_col,
@@ -164,7 +177,7 @@ assign_sample_id = function(this_data = NULL,
       ) %>%
       select(lab_id, personal_id, date_of_sample, sample_id, formatted_sample_id, tumor_n, sample_rep) %>%
       arrange(date_of_sample)
-  } else {
+  }else{
     this_data <- this_data %>%
       rename(
         lab_id = !!lab_id_col,

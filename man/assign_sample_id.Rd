@@ -7,9 +7,9 @@
 assign_sample_id(
   this_data = NULL,
   start_id = NULL,
-  lab_id_col = "lab_id",
-  personal_id_col = "personal_id",
-  date_col = "date_of_sample",
+  lab_id_col = NULL,
+  personal_id_col = NULL,
+  date_col = NULL,
   verbose = TRUE,
   return_full = FALSE
 )
